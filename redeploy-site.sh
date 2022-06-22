@@ -13,4 +13,4 @@ pip install -r requirements.txt
 
 tmux
 tmux detach
-flask run
+flask run --host=0.0.0.0
