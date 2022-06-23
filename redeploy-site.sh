@@ -2,7 +2,7 @@
 
 tmux kill-server
 
-cd ./project-sankalp
+cd project-sankalp
 
 git fetch
 git reset origin/main --hard
