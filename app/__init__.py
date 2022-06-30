@@ -32,7 +32,7 @@ print(mydb)
 class TimelinePost(Model):
     name = CharField()
     email = CharField()
-    content = TestField()
+    content = TextField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
