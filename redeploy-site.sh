@@ -1,5 +1,7 @@
 #!/bin/bash
 
+tmux kill-server
+
 cd project-sankalp
 
 git fetch
@@ -9,8 +11,6 @@ python -m venv python3-virtualenv
 source python3-virtualenv/bin/activate
 pip install -r requirements.txt
 
-systemctl start myportfolio
-systemctl enable myportfolio
-systemctl daemon-reload
-systemctl restart myportfolio
-systemctl status myportfolio
+tmux new -d -s site-session 'flask run --host=0.0.0.0'
+tmux send-keys 'exec redeploy-site.sh' C-m
+tmux detach -s site-session
