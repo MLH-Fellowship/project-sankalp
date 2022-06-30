@@ -182,8 +182,8 @@ from dotenv import load_dotenv
 from peewee import *
 import datetime
 from playhouse.shortcuts import model_to_dict
-import mysql.connector
-from mysql.connector import (connection)
+#import mysql.connector
+#from mysql.connector import (connection)
 
 load_dotenv()
 
