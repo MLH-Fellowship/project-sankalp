@@ -1,42 +1,108 @@
-# tests.py db
-import unittest
+import os, sys
+from flask import Flask, render_template, request
+from dotenv import load_dotenv
 from peewee import *
-from app import TimelinePost, get_time_line_post
+import datetime
+from playhouse.shortcuts import model_to_dict
 
-MODELS=[TimelinePost]
-#use an in-memory SQLite for tests.
-test_db=SqliteDatabase(':memory:')
+load_dotenv()
 
-#print(test_db)
-class TestTimelinePost(unittest.TestCase):
-    def setUp(self):
-        #Bind model classes to test db.Since we have a complete list of
-        #all models,we do not need to recursively bind dependencies.
-        test_db.bind(MODELS,bind_refs=False,bind_backrefs=False)
 
-        test_db.connect()
-        test_db.create_tables(MODELS)
+app = Flask(__name__)
 
-    def tearDown(self):
-        #Not strictly necessary since SQLite in-memory databases only live
-        #for the duration of the connection,and in the next step we close
-        #the connection ... but a good practice all the same.
-        test_db.drop_tables(MODELS)
-        #Close connection to db.
-        test_db.close()
+mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=3306)
+
+print(mydb)
+
+class TimelinePost(Model):
+    name = CharField()
+    email = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        database = mydb
+
+mydb.connect()
+mydb.create_tables([TimelinePost])
     
+@app.route('/main')
+def index():
+    return render_template('index.html', title="MLH Fellow", url=os.getenv("URL"))
 
-    def test_timeline_post(self):
-    #Create two timeline posts and verify if they exist
-        first_post=TimelinePost.create(name='John Doe',email='john@example.com',content='Hello world,I\'mJohn!')
-        assert first_post.id == 1
-        second_post=TimelinePost.create(name='Jane Doe',email='jame@example.com',content='Hello world,I\'mJane!')
-        assert second_post.id == 2
+@app.route('/')
+def About_Yourself():
+    return render_template('About_Yourself.html')
 
-        #Check if length of list within dictionary is 2 as 2 posts were created previously. (Get function returns dictionary with list of posts)
-        response = get_time_line_post() #We call get posts function
-        assert len(response["timeline_posts"]) == 2
+@app.route('/Map')
+def Map():
+    return render_template('Map.html')
 
-        #Check if posts in list are the same as the ones inserted 2 is the first in the list and 1 is the second
-        assert response["timeline_posts"][0]["name"] =='Jane Doe' #Jane Doe
-        assert response["timeline_posts"][1]["name"] =='John Doe' #John Doe
+@app.route('/Hobbies')
+def Hobbies():
+    return render_template('Hobbies.html')
+
+@app.route('/Education')
+def Education():
+    return render_template('Education.html')
+
+@app.route('/Experience')
+def Experience():
+    return render_template('Previous_Work_Experience.html')
+
+@app.route('/api/timeline_post', methods=['POST'])
+def post_time_line_post():
+    name = request.form['name']
+    email = request.form['email']
+    content = request.form['content']
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+
+    return model_to_dict(timeline_post)
+
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+    return {
+        'timeline_posts': [
+            model_to_dict(p)
+            for p in
+TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
+
+@app.route('/api/movie_post', methods=['POST'])
+def post_movie_post():
+    name = request.form['name']
+    email = request.form['email']
+    content = request.form['content']
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+
+    return model_to_dict(timeline_post)
+
+@app.route('/api/movie_post', methods=['GET'])
+def get_movie_post():
+    return {
+        'movies_posts': [
+            model_to_dict(p)
+            for p in
+TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
+
+@app.route('/Timeline')
+def timeline():
+    return render_template('timeline.html', title='Timeline')
+
+if os.getenv("TESTING") == "true":
+    print("Running in test mode")
+    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=true)
+else:
+    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        post=3306
+    )
