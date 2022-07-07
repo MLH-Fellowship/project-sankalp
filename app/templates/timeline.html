@@ -1,9 +1,42 @@
-<!DOCTYPE html>
+# <!DOCTYPE html>
 
-if ( 'POST' != $_SERVER['REQUEST_METHOD'] ) {
+<!-- if ( 'POST' != $_SERVER['REQUEST_METHOD'] ) {
 	header('Allow: POST');
 	header('HTTP/1.1 204 Method Not Allowed');
 	header('Content-Type: text/html, charset=UTF-8');
 	echo "Only Post";
 	exit;
-}
+} -->
+
+{% extends "base.html" %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="font-family:georgia;">About Us</h1>
+<nav>
+  <ul>
+    <li>
+      <a href="About_Yourself.html">About Yourself</a>
+    </li>
+    <li>
+      <a href="Previous_Work_Experience.html">Previous Work Experience</a>
+    </li>
+    <li>
+      <a href="Hobbies.html">Hobbies</a>
+    </li>
+    <li>
+        <a href="Education.html">Education</a>
+      </li>
+      <li>
+        <a href="Map.html">Map</a>
+      </li>
+  </ul>
+</nav>
+<h1>Timeline</h1>
+
+<ul><li><a>
+    
+{% endblock %}
