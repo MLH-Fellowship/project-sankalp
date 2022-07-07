@@ -7,6 +7,7 @@
 	echo "Only Post";
 	exit;
 } -->
+
 {% extends "base.html" %}
 {% block head %}
 
@@ -44,12 +45,16 @@
             placeholder="Enter Name" size="20">
         <br><br>
   
-        Email: <input type="text" name="email" 
+        Email: <input type="email" name="email" 
 			placeholder="Enter Email" size="20">
+        <br><br>
+
+		Content: <input type="text" name="content" 
+			placeholder="Enter Content" size="20">
         <br><br>
               
         <input type="submit" name="submit" value="Submit">
-        <input type="reset" name="reset" value="Reset">
+        <!-- <input type="reset" name="reset" value="Reset"> -->
         <button name="click">Click Me</button>
     </form>
 </body>
