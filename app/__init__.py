@@ -27,10 +27,8 @@ else:
         password=os.getenv("MYSQL_PASSWORD"),
         host=os.getenv("MYSQL_HOST"),
         post=3306
-    print(mydb)
+#     print(mydb)
     )
-
-print(mydb)
 
 class TimelinePost(Model):
     name = CharField()
