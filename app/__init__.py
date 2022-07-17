@@ -80,7 +80,6 @@ def post_time_line_post():
     name = request.form['name']
     email = request.form['email']
     content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
     
     error=None
     if name is None or name == '':
@@ -89,8 +88,12 @@ def post_time_line_post():
         error = 'Invalid Email'
     elif content is None or content == '':
         error = 'Invalid Content'
-
-    return model_to_dict(timeline_post)
+        
+    if error is not None:
+        return error, 400
+    else:
+        timeline_post = TimelinePost.create(name=name, email=email, content=content)
+        return model_to_dict(timeline_post)
 
 # Retrieve all timeline and return a list of points
 @app.route('/api/load_timeline_post',methods=['GET'])
