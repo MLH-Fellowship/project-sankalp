@@ -6,17 +6,22 @@ import datetime
 from playhouse.shortcuts import model_to_dict
 
 load_dotenv()
-
-
 app = Flask(__name__)
 
-mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+if os.getenv("TESTING") == "true":
+    print("Running in test mode")
+    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
+else:
+    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
         user=os.getenv("MYSQL_USER"),
         password=os.getenv("MYSQL_PASSWORD"),
         host=os.getenv("MYSQL_HOST"),
-        port=3306)
-
-print(mydb)
+        port=3306
+    )
 
 class TimelinePost(Model):
     name = CharField()
@@ -76,14 +81,3 @@ TimelinePost.select().order_by(TimelinePost.created_at.desc())
 @app.route('/Timeline')
 def timeline():
     return render_template('timeline.html', title='Timeline')
-
-if os.getenv("TESTING") == "true":
-    print("Running in test mode")
-    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
-else:
-    mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"),
-        user=os.getenv("MYSQL_USER"),
-        password=os.getenv("MYSQL_PASSWORD"),
-        host=os.getenv("MYSQL_HOST"),
-        post=3306
-    )
