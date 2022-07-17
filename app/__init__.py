@@ -62,11 +62,11 @@ def Experience():
 @app.route('/Timeline')
 def timeline():
     timeline_posts = TimelinePost.select()
-    posts = []
-    for post in timeline_posts:
-        posts.append(model_to_dict(post))
+    storage = []
+    for item in timeline_posts:
+        storage.append(model_to_dict(item))
  
-    return render_template('timeline.html', posts=posts)
+    return render_template('timeline.html', storage=storage)
 #     posts = TimelinePost.select()
 #     storage = []
 #     for post in posts:
