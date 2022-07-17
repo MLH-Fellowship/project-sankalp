@@ -86,7 +86,7 @@ def post_time_line_post():
     return model_to_dict(timeline_post)
 
 # Retrieve all timeline and return a list of points
-@app.route('/api/display_timeline_post', methods=['GET'])
+@app.route('/api/timeline_post', methods=['GET'])
 def display_timeline_post():
     posts = TimelinePost.select()
     storage = []
