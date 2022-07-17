@@ -69,21 +69,21 @@ def timeline():
 #     return render_template('timeline.html', title='Timeline')
      return render_template('timeline.html', storage=storage)
 
-app.add_url_rule("/aboutUs", endpoint="/")
-app.add_url_rule("/aboutMap", endpoint="/Map")
-app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
-app.add_url_rule("/aboutEducation", endpoint="/Education")
-app.add_url_rule("/aboutExperience", endpoint="/Experience")
+# app.add_url_rule("/aboutUs", endpoint="/")
+# app.add_url_rule("/aboutMap", endpoint="/Map")
+# app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
+# app.add_url_rule("/aboutEducation", endpoint="/Education")
+# app.add_url_rule("/aboutExperience", endpoint="/Experience")
 
-# Post new timeline
-@app.route('/api/timeline_post', methods=['POST'])
-def post_time_line_post():
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+# # Post new timeline
+# @app.route('/api/timeline_post', methods=['POST'])
+# def post_time_line_post():
+#     name = request.form['name']
+#     email = request.form['email']
+#     content = request.form['content']
+#     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
-    return model_to_dict(timeline_post)
+#     return model_to_dict(timeline_post)
 
 # # Retrieve all timeline and return a list of points
 # @app.route('/api/timeline_post', methods=['GET'])
