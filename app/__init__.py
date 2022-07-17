@@ -67,7 +67,7 @@ def timeline():
         storage.append(model_to_dict(post))
     
 #     return render_template('timeline.html', title='Timeline')
-     return render_template('timeline.html', posts=posts)
+     return render_template('timeline.html', storage=storage)
 
 app.add_url_rule("/aboutUs", endpoint="/")
 app.add_url_rule("/aboutMap", endpoint="/Map")
@@ -85,14 +85,14 @@ def post_time_line_post():
 
     return model_to_dict(timeline_post)
 
-# Retrieve all timeline and return a list of points
-@app.route('/api/timeline_post', methods=['GET'])
-def display_timeline_post():
-    posts = TimelinePost.select()
-    storage = []
-    for post in posts:
-        storage.append(model_to_dict(post))
-     return storage
+# # Retrieve all timeline and return a list of points
+# @app.route('/api/timeline_post', methods=['GET'])
+# def display_timeline_post():
+#     posts = TimelinePost.select()
+#     storage = []
+#     for post in posts:
+#         storage.append(model_to_dict(post))
+#      return storage
 
  
 # # Retrieve all timeline posts ordered by created_at descending
