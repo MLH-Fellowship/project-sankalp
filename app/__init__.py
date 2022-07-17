@@ -93,14 +93,14 @@ def load_timeline_post():
         storage.append(model_to_dict(item))
     return storage
  
-# # Retrieve all timeline posts ordered by created_at descending
-# @app.route('/api/timeline_post', methods=['GET'])
-# def get_time_line_post():
-#     return {
-#         'timeline_posts': [
-#             model_to_dict(p)
-#             for p in
-# TimelinePost.select().order_by(TimelinePost.created_at.desc())
-#         ]
-#     }
+# Retrieve all timeline posts ordered by created_at descending
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+    return {
+        'timeline_posts': [
+            model_to_dict(p)
+            for p in
+TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
 
