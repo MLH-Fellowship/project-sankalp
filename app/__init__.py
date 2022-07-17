@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from peewee import *
 import datetime
 from playhouse.shortcuts import model_to_dict
+import re
 
 load_dotenv()
 app = Flask(__name__)
@@ -22,6 +23,8 @@ else:
         host=os.getenv("MYSQL_HOST"),
         port=3306
     )
+    
+regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
 class TimelinePost(Model):
     name = CharField()
@@ -85,7 +88,7 @@ def post_time_line_post():
     if name is None or name == '':
         error = 'Invalid name'
         return error, 400
-    elif email is None or email == '':
+    elif email is None or email == '' or not re.fullmatch(regex, email):
         error = 'Invalid email'
         return error, 400
     elif content is None or content == '':
