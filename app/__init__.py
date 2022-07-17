@@ -59,21 +59,21 @@ def Education():
 def Experience():
     return render_template('Previous_Work_Experience.html')
 
-# @app.route('/Timeline')
-# def timeline():
-#     posts = TimelinePost.select()
-#     storage = []
-#     for post in posts:
-#         storage.append(model_to_dict(post))
+@app.route('/Timeline')
+def timeline():
+    posts = TimelinePost.select()
+    storage = []
+    for post in posts:
+        storage.append(model_to_dict(post))
     
-# #     return render_template('timeline.html', title='Timeline')
-#      return render_template('timeline.html', posts=posts)
+#     return render_template('timeline.html', title='Timeline')
+     return render_template('timeline.html', posts=posts)
 
-# app.add_url_rule("/aboutUs", endpoint="/")
-# app.add_url_rule("/aboutMap", endpoint="/Map")
-# app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
-# app.add_url_rule("/aboutEducation", endpoint="/Education")
-# app.add_url_rule("/aboutExperience", endpoint="/Experience")
+app.add_url_rule("/aboutUs", endpoint="/")
+app.add_url_rule("/aboutMap", endpoint="/Map")
+app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
+app.add_url_rule("/aboutEducation", endpoint="/Education")
+app.add_url_rule("/aboutExperience", endpoint="/Experience")
 
 # # Post new timeline
 # @app.route('/api/timeline_post', methods=['POST'])
