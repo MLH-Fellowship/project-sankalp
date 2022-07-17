@@ -61,13 +61,19 @@ def Experience():
 
 @app.route('/Timeline')
 def timeline():
-    posts = TimelinePost.select()
-    storage = []
-    for post in posts:
-        storage.append(model_to_dict(post))
+    timeline_posts = TimelinePost.select()
+    posts = []
+    for post in timeline_posts:
+        posts.append(model_to_dict(post))
+ 
+    return render_template('timeline.html', posts=posts)
+#     posts = TimelinePost.select()
+#     storage = []
+#     for post in posts:
+#         storage.append(model_to_dict(post))
     
-#     return render_template('timeline.html', title='Timeline')
-     return render_template('timeline.html', storage=storage)
+# #     return render_template('timeline.html', title='Timeline')
+#      return render_template('timeline.html', storage=storage)
 
 # app.add_url_rule("/aboutUs", endpoint="/")
 # app.add_url_rule("/aboutMap", endpoint="/Map")
