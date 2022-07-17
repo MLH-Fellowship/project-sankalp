@@ -59,6 +59,14 @@ def Education():
 def Experience():
     return render_template('Previous_Work_Experience.html')
 
+@app.route('/Timeline')
+def timeline():
+    timeline_posts = TimelinePost.select()
+    posts = []
+    for post in timeline_posts:
+        posts.append(model_to_dict(post))
+    return render_template('timeline.html', title='Timeline')
+
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
     name = request.form['name']
@@ -77,7 +85,3 @@ def get_time_line_post():
 TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }
-
-@app.route('/Timeline')
-def timeline():
-    return render_template('timeline.html', title='Timeline')
