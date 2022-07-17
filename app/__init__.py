@@ -69,11 +69,11 @@ def timeline():
 #     return render_template('timeline.html', title='Timeline')
      return render_template('timeline.html', posts=posts)
 
-app.add_url_rule("/aboutUs", endpoint="/")
-app.add_url_rule("/aboutMap", endpoint="/Map")
-app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
-app.add_url_rule("/aboutEducation", endpoint="/Education")
-app.add_url_rule("/aboutExperience", endpoint="/Experience")
+# app.add_url_rule("/aboutUs", endpoint="/")
+# app.add_url_rule("/aboutMap", endpoint="/Map")
+# app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
+# app.add_url_rule("/aboutEducation", endpoint="/Education")
+# app.add_url_rule("/aboutExperience", endpoint="/Experience")
 
 # # Post new timeline
 # @app.route('/api/timeline_post', methods=['POST'])
