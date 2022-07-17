@@ -83,11 +83,11 @@ def post_time_line_post():
     
     error=None
     if name is None or name == '':
-        error = 'Invalid Name'
+        error = 'Invalid name'
     elif email is None or email == '':
-        error = 'Invalid Email'
+        error = 'Invalid email'
     elif content is None or content == '':
-        error = 'Invalid Content'
+        error = 'Invalid content'
         
     if error is not None:
         return error, 400
