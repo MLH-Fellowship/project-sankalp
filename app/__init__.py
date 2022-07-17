@@ -81,6 +81,14 @@ def post_time_line_post():
     email = request.form['email']
     content = request.form['content']
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
+    
+    error=None
+    if name is None or name == '':
+        error = 'Invalid Name'
+    elif email is None or email == '':
+        error = 'Invalid Email'
+    elif content is None or content == '':
+        error = 'Invalid Content'
 
     return model_to_dict(timeline_post)
 
