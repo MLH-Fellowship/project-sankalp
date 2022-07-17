@@ -62,9 +62,6 @@ def Experience():
 @app.route('/Timeline')
 def timeline():
     timeline_posts = TimelinePost.select()
-    posts = []
-    for post in timeline_posts:
-        posts.append(model_to_dict(post))
     return render_template('timeline.html', title='Timeline')
 
 @app.route('/api/timeline_post', methods=['POST'])
