@@ -88,10 +88,10 @@ def post_time_line_post():
 @app.route('/api/timeline_post', methods=['GET'])
 def display_timeline_post():
     timeline_posts = TimelinePost.select()
-    storage = []
-    for item in timeline_posts:
-        storage.append(model_to_dict(item))
-     return storage
+    posts_list = []
+    for timeline_post in timeline_posts:
+        posts_list.append(model_to_dict(timeline_post))
+    return posts_list
  
 # # Retrieve all timeline posts ordered by created_at descending
 # @app.route('/api/timeline_post', methods=['GET'])
