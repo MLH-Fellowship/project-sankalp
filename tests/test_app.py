@@ -32,13 +32,13 @@ class AppTestCase(unittest.TestCase):
        assert"timeline_posts"in json
        assert len(json["timeline_posts"]) > 0
 
-#    def test_timeline_post(self):
-#        response=self.client.post("/api/timeline_post", data= {"email":"john@example.com","content":"Hello world,I'm John!"})
-#        assert response.status_code == 200
-#        assert response.is_json
-#        json = response.get_json()
-#        assert"timeline_posts"in json
-#        assert len(json["timeline_posts"]) > 0
+   def test_timeline_post(self):
+       response=self.client.post("/api/timeline_post", data= {"email":"john@example.com","content":"Hello world,I'm John!"})
+       assert response.status_code == 200
+       assert response.is_json
+       json = response.get_json()
+       assert"timeline_posts"in json
+       assert len(json["timeline_posts"]) > 0
 
 
    def test_malformed_timeline_post_name(self):
@@ -48,16 +48,16 @@ class AppTestCase(unittest.TestCase):
        html = response.get_data(as_text = True)
        assert "Invalid name" in html 
     
-#    def test_malformed_timeline_post_content(self):
-#     #Post request with missing content
-#        response= self.client.post("/api/timeline_post", data= {"name":"John Doe","email":"john@example.com","content":""})
-#        assert response.status_code==400
-#        html = response.get_data(as_text = True)
-#        assert "Invalid content" in html 
+   def test_malformed_timeline_post_content(self):
+    #Post request with missing content
+       response= self.client.post("/api/timeline_post", data= {"name":"John Doe","email":"john@example.com","content":""})
+       assert response.status_code==400
+       html = response.get_data(as_text = True)
+       assert "Invalid content" in html 
        
-#    def test_malformed_timeline_post_email(self):
-#     #POST request with malformed email
-#        response = self.client.post("/api/timeline_post", data={"name":"John Doe","email":"not-an-email","content":"Hello world,I'm John!"})
-#        assert response.status_code==400
-#        html = response.get_data(as_text = True)
-#        assert "Invalid email" in html
+   def test_malformed_timeline_post_email(self):
+    #POST request with malformed email
+       response = self.client.post("/api/timeline_post", data={"name":"John Doe","email":"not-an-email","content":"Hello world,I'm John!"})
+       assert response.status_code==400
+       html = response.get_data(as_text = True)
+       assert "Invalid email" in html
