@@ -66,8 +66,8 @@ def timeline():
     for post in posts:
         storage.append(model_to_dict(post))
     
-#     return render_template('timeline.html', title='Timeline')
-     return render_template('timeline.html', posts=posts)
+    return render_template('timeline.html', title='Timeline')
+#      return render_template('timeline.html', posts=posts)
 
 # app.add_url_rule("/aboutUs", endpoint="/")
 # app.add_url_rule("/aboutMap", endpoint="/Map")
