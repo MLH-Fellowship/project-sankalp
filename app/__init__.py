@@ -75,34 +75,34 @@ app.add_url_rule("/aboutHobbies", endpoint="/Hobbies")
 app.add_url_rule("/aboutEducation", endpoint="/Education")
 app.add_url_rule("/aboutExperience", endpoint="/Experience")
 
-# Post new timeline
-@app.route('/api/timeline_post', methods=['POST'])
-def post_time_line_post():
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+# # Post new timeline
+# @app.route('/api/timeline_post', methods=['POST'])
+# def post_time_line_post():
+#     name = request.form['name']
+#     email = request.form['email']
+#     content = request.form['content']
+#     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
-    return model_to_dict(timeline_post)
+#     return model_to_dict(timeline_post)
 
-# Retrieve all timeline and return a list of points
-@app.route('/api/display_timeline_post', methods=['GET'])
-def display_timeline_post():
-    posts = TimelinePost.select()
-    storage = []
-    for post in posts:
-        storage.append(model_to_dict(post))
-     return storage
+# # Retrieve all timeline and return a list of points
+# @app.route('/api/display_timeline_post', methods=['GET'])
+# def display_timeline_post():
+#     posts = TimelinePost.select()
+#     storage = []
+#     for post in posts:
+#         storage.append(model_to_dict(post))
+#      return storage
 
  
-# Retrieve all timeline posts ordered by created_at descending
-@app.route('/api/timeline_post', methods=['GET'])
-def get_time_line_post():
-    return {
-        'timeline_posts': [
-            model_to_dict(p)
-            for p in
-TimelinePost.select().order_by(TimelinePost.created_at.desc())
-        ]
-    }
+# # Retrieve all timeline posts ordered by created_at descending
+# @app.route('/api/timeline_post', methods=['GET'])
+# def get_time_line_post():
+#     return {
+#         'timeline_posts': [
+#             model_to_dict(p)
+#             for p in
+# TimelinePost.select().order_by(TimelinePost.created_at.desc())
+#         ]
+#     }
 
