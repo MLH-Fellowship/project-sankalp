@@ -29,7 +29,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
           
       - name: Gives Permission
-        run: chmod +x redeploy-site.sh
+        run: ssh my-vm 'chmod +x redeploy-site.sh'
           
       - name: Deploy Site
-        run: ./redeploy-site.sh
+        run: ssh my-vm './redeploy-site.sh'
