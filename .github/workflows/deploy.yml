@@ -31,8 +31,8 @@ jobs:
       - name: Enter VPS
         run: ssh my-vps 'cd project-sankalp'
       
-      - name: List
-        run: ls
+      - name: Check Directory
+        run: chmod +x redeploy-site.sh
         
 #       - name: Give Permission
 #         run: ssh my-vps 'chmod +x redeploy-site.sh'
