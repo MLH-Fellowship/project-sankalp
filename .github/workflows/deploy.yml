@@ -30,6 +30,9 @@ jobs:
           
       - name: Enter VPS
         run: ssh my-vps 'cd project-sankalp'
+    
+      - name: Give Permission
+        run: ssh my-vps 'chmod +x redeploy-site.sh'
       
       - name: Deploy Site
-        run: ssh my-vps '~/redeploy-site.sh'
+        run: ssh my-vps './redeploy-site.sh'
