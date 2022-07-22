@@ -30,6 +30,12 @@ jobs:
           
       - name: Enter VPS
         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }}'
+      
+      - name: Give Permission
+        run: ssh my-vps 'chmod +x redeploy-site.sh'
+      
+      - name: Deploy Site
+        run: ssh my-vps './redeploy-site.sh'
         
 #       - name: Give Permission
 #         run: ssh my-vps 'chmod +x redeploy-site.sh'
