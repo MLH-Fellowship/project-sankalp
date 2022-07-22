@@ -28,8 +28,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_IP: ${{ secrets.SSH_IP }}
           
-      - name: Gives Permission
-        run: ssh my-vps 'chmod +x redeploy-site.sh'
           
       - name: Deploy Site
-        run: ssh my-vps './redeploy-site.sh'
+        run: ssh my-vps '~/redeploy-site.sh'
