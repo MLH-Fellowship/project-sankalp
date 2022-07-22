@@ -29,10 +29,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
           
       - name: Enter VPS
-        run: ssh my-vps 'cd project-sankalp'
-      
-      - name: Check Directory
-        run: ssh my-vps 'cd app'
+        run: ssh my-vps 'cd project-ssquad-sebastian'
         
 #       - name: Give Permission
 #         run: ssh my-vps 'chmod +x redeploy-site.sh'
