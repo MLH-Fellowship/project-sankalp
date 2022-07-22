@@ -29,7 +29,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
           
       - name: Enter VPS
-        run: ssh my-vps 'cd "***"'
+        run: ssh my-vps 'cd project-sankalp'
       
       - name: Deploy Site
         run: ssh my-vps '~/redeploy-site.sh'
