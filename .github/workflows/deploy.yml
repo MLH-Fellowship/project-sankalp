@@ -32,7 +32,7 @@ jobs:
         run: ssh my-vps 'cd project-sankalp'
       
       - name: Check Directory
-        run: chmod +x redeploy-site.sh
+        run: ssh my-vps 'cd app'
         
 #       - name: Give Permission
 #         run: ssh my-vps 'chmod +x redeploy-site.sh'
