@@ -117,3 +117,8 @@ TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }
 
+const form = document.getElementById('form');
+ 
+form.addEventListener('submit', function(e) {
+    e.preventDefault()
+})
