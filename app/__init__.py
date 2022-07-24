@@ -117,10 +117,10 @@ TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }
 
-const form = document.getElementById('form');
+# const form = document.getElementById('form');
  
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const payload = new URLSearchParams(formData);
-})
+# form.addEventListener('submit', function(e) {
+#     e.preventDefault();
+#     const formData = new FormData(form);
+#     const payload = new URLSearchParams(formData);
+# })
