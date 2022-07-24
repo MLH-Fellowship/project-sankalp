@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh 
 
 cd project-sankalp
 
@@ -10,4 +10,4 @@ docker compose -f docker-compose.prod.yml up -d --build
 
 docker-compose ps
 
-curl -s -X POST "${{secrets.DISCORD_WEBHOOK}}" -d "content=🚀 Deployment Successful"
+curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
