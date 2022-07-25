@@ -50,6 +50,19 @@ form.addEventListener('submit', function(e) {
     const payload = new FormData(form);
     console.log([…payload]);
 })
+	
+const form = document.getElementById('form');
+ 
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const payload = new FormData(form);
+    fetch('https://httpbin.org/post', {
+    method: 'POST',
+    body: payload,
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+})
 </script>
   
 </html>
