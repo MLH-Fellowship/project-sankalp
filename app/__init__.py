@@ -79,23 +79,6 @@ app.add_url_rule("/aboutExperience", endpoint="/Experience")
 # Post new timeline
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    
-    const form = document.getElementById('form');
- 
-    form.addEventListener('submit', function(e) {
-        // Prevent default behavior:
-        e.preventDefault();
-        // Create payload as new FormData object:
-        const payload = new FormData(form);
-        // Post the payload using Fetch:
-        fetch('https://httpbin.org/post', {
-        method: 'POST',
-        body: payload,
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
-    })
-    
     name = request.form.get('name', None)
     email = request.form.get('email', None)
     content = request.form.get('content', None)
