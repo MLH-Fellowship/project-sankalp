@@ -46,8 +46,13 @@
 const form = document.getElementById('form');
  
 form.addEventListener('submit', function(e) {
+    // Prevent default behavior:
     e.preventDefault();
-    const payload = new FormData(form);
+    // Create new FormData object:
+    const formData = new FormData(form);
+    // Convert formData object to URL-encoded string:
+    const payload = new URLSearchParams(formData);
+    // Post the payload using Fetch:
     fetch('https://httpbin.org/post', {
     method: 'POST',
     body: payload,
