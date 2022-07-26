@@ -32,14 +32,15 @@ jobs:
         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh &&./redeploy-site.sh'
         
       - name: Successful Deployment Notification
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
 
-  on-failure:
-    name: Notify Discord of failure
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccessful"'
+#   on-failure:
+#     name: Notify Discord of failure
+#     runs-on: ubuntu-latest
+#     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+#     steps:
+#       - run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccessful"'
         
         
  
