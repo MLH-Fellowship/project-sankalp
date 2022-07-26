@@ -33,4 +33,14 @@ jobs:
         
       - name: Deployment notification
         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+        
+on-failure:
+  name: Failure Notification
+  runs-on: ubuntu-latest
+  steps:
+    - name: Check Failure Notification
+      if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+      run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccesful"'
+        
+ 
 
