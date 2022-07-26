@@ -27,10 +27,15 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_IP: ${{ secrets.SSH_IP }}
-          
-      - name: Enter VPS
-        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh &&./redeploy-site.sh'
         
-      - name: Deployment notification
-        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+        - rules:
+            - if [ ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh &&./redeploy-site.sh' ]
+              then
+                curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+          
+#       - name: Enter VPS
+#         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh &&./redeploy-site.sh'
+        
+#       - name: Deployment notification
+#         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
 
