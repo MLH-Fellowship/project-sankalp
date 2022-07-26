@@ -31,9 +31,14 @@ jobs:
       - name: Enter VPS
         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh &&./redeploy-site.sh'
         
-      - name: Deployment notification
+      - name: Successful Deployment Notification
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+      
+      - name: Failure Deployment Notification
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccesful"'
+        
         
 # on-failure:
 #   name: Failure Notification
