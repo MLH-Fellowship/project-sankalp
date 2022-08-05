@@ -35,9 +35,9 @@
 <body>
     <h2>Add an Entry</h2>
     <form id="form">
-    	<input name="Name" type="text">
-    	<input name="Email" type="text">
-	<input name="Content" type="text">
+    	<input name="name" type="text">
+    	<input name="email" type="text">
+	<input name="content" type="text">
 	<button type="submit">Submit</button>
     </form> 
 </body>
@@ -53,7 +53,7 @@ form.addEventListener('submit', function(e) {
     // Convert formData object to URL-encoded string:
     const payload = new URLSearchParams(formData);
     // Post the payload using Fetch:
-    fetch('https://httpbin.org/post', {
+    fetch('https://api/timeline_post'), {
     method: 'POST',
     body: payload,
     })
