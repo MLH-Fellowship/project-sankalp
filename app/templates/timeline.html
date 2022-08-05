@@ -53,7 +53,7 @@ form.addEventListener('submit', function(e) {
     // Convert formData object to URL-encoded string:
     const payload = new URLSearchParams(formData);
     // Post the payload using Fetch:
-    fetch('https://api/timeline_post'), {
+    fetch('/api/timeline_post'), {
     method: 'POST',
     body: payload,
     })
