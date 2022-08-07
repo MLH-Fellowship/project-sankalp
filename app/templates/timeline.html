@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+<!-- {% extends "base.html" %}
 
 {% block head %}
 
@@ -72,4 +72,52 @@
 </body>
 </html>
 
-{% endblock %}
+{% endblock %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> title </title>
+</head>
+<body>
+<div class="input" >
+    <form id="form">
+
+        <label for="name">name</label>
+        <input id="name" name="name" type="text">
+        <label for="email">email</label>
+        <input id = "email" name="email" type="text">
+        <label for="content">content </label>
+        <input id="content" name="content" type="text">
+        <button class = "submit" type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    /* Sending the formData object as payload using Fetch */
+
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', function(e) {
+        // Prevent default behavior:
+        e.preventDefault();
+        // Create payload as new FormData object:
+        const payload = new FormData(form);
+        // Post the payload using Fetch:
+        fetch('/api/timeline_post', {
+        method: 'POST',
+        body: payload,
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .finally(function () {
+            setTimeout(function(){
+                window.location.reload();},100);
+    })
+
+</script>
+</body>
+</html>
