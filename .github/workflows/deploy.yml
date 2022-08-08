@@ -1,45 +1,3 @@
-# name: Deploy
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
-
-# jobs:
-#   deploy:
-#     name: "Deploy to VPS"
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Configure SSH
-#         run: |
-#           mkdir -p ~/.ssh/
-#           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy-key.pem
-#           chmod 600 ~/.ssh/deploy-key.pem
-#           cat >> ~/.ssh/config <<END
-#           Host my-vps
-#             HostName $SSH_IP
-#             User $SSH_USER
-#             IdentityFile ~/.ssh/deploy-key.pem
-#             StrictHostKeyChecking no
-#           END
-#         env:
-#           SSH_USER: ${{ secrets.SSH_USER }}
-#           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-#           SSH_IP: ${{ secrets.SSH_IP }}
-          
-#       - name: Enter VPS
-#         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod +x redeploy-site.sh &&./redeploy-site.sh'
-      
-#       - name: Successful Deployment Notification
-#         run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
-
-#   on-failure:
-#     name: Notify Discord of failure
-#     runs-on: ubuntu-latest
-#     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-#     steps:
-#       - run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccessful"'
 name: Deploy
 
 on:
@@ -47,37 +5,10 @@ on:
     branches:
       - main
   workflow_dispatch:
-    
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    name: Run Tests
-    env:
-      TESTING: true
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.6.8'
-      
-      - name: Setup Python Virtual Environment
-        run: python -m venv python3-virtualenv
-
-      - name: Install Dependencies
-        run: python3-virtualenv/bin/pip install -r requirements.txt
-      
-#       - name: Get Permission
-#         run: chmod +x run_tests.sh
-
-#       - name: Run Tests
-#         run: ./run_tests.sh
-        
   deploy:
     name: "Deploy to VPS"
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Configure SSH
@@ -97,19 +28,89 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_IP: ${{ secrets.SSH_IP }}
           
-      - name: Deploy Site
+      - name: Enter VPS
         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod +x redeploy-site.sh &&./redeploy-site.sh'
       
-#       - name: Print container status
-#         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
-      
-      - name: Notify discord channel
-        run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"'
-  
+      - name: Successful Deployment Notification
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+
   on-failure:
     name: Notify Discord of failure
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
-      - run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccesful"'
+      - run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccessful"'
+
+# name: Deploy
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+    
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     name: Run Tests
+#     env:
+#       TESTING: true
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
+      
+#       - name: Setup Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.6.8'
+      
+#       - name: Setup Python Virtual Environment
+#         run: python -m venv python3-virtualenv
+
+#       - name: Install Dependencies
+#         run: python3-virtualenv/bin/pip install -r requirements.txt
+      
+# #       - name: Get Permission
+# #         run: chmod +x run_tests.sh
+
+# #       - name: Run Tests
+# #         run: ./run_tests.sh
+        
+#   deploy:
+#     name: "Deploy to VPS"
+#     needs: test
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Configure SSH
+#         run: |
+#           mkdir -p ~/.ssh/
+#           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy-key.pem
+#           chmod 600 ~/.ssh/deploy-key.pem
+#           cat >> ~/.ssh/config <<END
+#           Host my-vps
+#             HostName $SSH_IP
+#             User $SSH_USER
+#             IdentityFile ~/.ssh/deploy-key.pem
+#             StrictHostKeyChecking no
+#           END
+#         env:
+#           SSH_USER: ${{ secrets.SSH_USER }}
+#           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#           SSH_IP: ${{ secrets.SSH_IP }}
+          
+#       - name: Deploy Site
+#         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod +x redeploy-site.sh &&./redeploy-site.sh'
+      
+# #       - name: Print container status
+# #         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
+      
+#       - name: Notify discord channel
+#         run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"'
+  
+#   on-failure:
+#     name: Notify Discord of failure
+#     runs-on: ubuntu-latest
+#     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+#     steps:
+#       - run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=❌ Deployment Unsuccesful"'
 
