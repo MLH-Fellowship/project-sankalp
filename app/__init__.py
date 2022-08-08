@@ -79,9 +79,12 @@ app.add_url_rule("/aboutExperience", endpoint="/Experience")
 # Post new timeline
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
-    name = request.form.get('name', None)
-    email = request.form.get('email', None)
-    content = request.form.get('content', None)
+#     name = request.form.get('name', None)
+#     email = request.form.get('email', None)
+#     content = request.form.get('content', None)
+    name = request.form['name']
+    email = request.form['email']
+    content = request.form['content']
     
     error=None
     if name is None or name == '':
