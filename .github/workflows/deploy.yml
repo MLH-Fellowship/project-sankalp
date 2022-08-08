@@ -68,9 +68,6 @@ jobs:
 
       - name: Install Dependencies
         run: python3-virtualenv/bin/pip install -r requirements.txt
-        
-      - name: List
-        run: ls
       
 #       - name: Get Permission
 #         run: chmod +x run_tests.sh
@@ -101,10 +98,10 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
           
       - name: Deploy Site
-        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh./redeploy-site.sh'
+        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod +x redeploy-site.sh &&./redeploy-site.sh'
       
-      - name: Print container status
-        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
+#       - name: Print container status
+#         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
       
       - name: Notify discord channel
         run: ssh my-vps 'curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"'
