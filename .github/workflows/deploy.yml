@@ -49,28 +49,28 @@ on:
   workflow_dispatch:
     
 jobs:
-#   test:
-#     runs-on: ubuntu-latest
-#     name: Run Tests
-#     env:
-#       TESTING: true
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v2
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    env:
+      TESTING: true
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       
-#       - name: Setup Python
-#         uses: actions/setup-python@v4
-#         with:
-#           python-version: '3.6.8'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.6.8'
       
-#       - name: Setup Python Virtual Environment
-#         run: python -m venv python3-virtualenv
+      - name: Setup Python Virtual Environment
+        run: python -m venv python3-virtualenv
 
-#       - name: Install Dependencies
-#         run: python3-virtualenv/bin/pip install -r requirements.txt
+      - name: Install Dependencies
+        run: python3-virtualenv/bin/pip install -r requirements.txt
         
-#       - name: List
-#         run: ls
+      - name: List
+        run: ls
       
 #       - name: Get Permission
 #         run: chmod +x run_tests.sh
@@ -101,7 +101,7 @@ jobs:
           SSH_IP: ${{ secrets.SSH_IP }}
           
       - name: Deploy Site
-        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && ./redeploy-site.sh'
+        run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && chmod +x redeploy-site.sh./redeploy-site.sh'
       
       - name: Print container status
         run: ssh my-vps 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
