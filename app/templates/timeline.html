@@ -45,30 +45,47 @@
         <button class = "submit" type="submit">Submit</button>
     </form>
 </div>
+ <div id="timeline-posts">0</div>
+    <script>
+        const form = document.getElementById("timeline-form");
+        const posts = document.getElementById("timeline-posts");
 
-<script>
-    /* Sending the formData object as payload using Fetch */
+        function getPosts() {
+            event.preventDefault();
+            fetch('https://mlhvictor.duckdns.org/api/timeline_post').then(response => {
+                return response.json();
+            }).then(data => {
+                for (const element of data.timeline_posts) {
+                    console.log(element)
+                    posts.innerHTML +=
+                        `<div>
+                        <p>content: ${element.content}</p>
+                        <p>created_at: ${element.created_at}</p>
+                        <p>email: created_at: ${element.email}</p>
+                    </div>`;
+                }
+            });
+        }
 
-    const form = document.getElementById('form');
+        form.onsubmit = (event) => {
+            event.preventDefault();
+            const data = new FormData(form);
+            fetch('https://mlhvictor.duckdns.org/api/timeline_post', {
+                method: 'POST',
+                body: data,
+            }).then(res => {
+                return res.json();
+            }
+            ).then(data => {
+                console.log(data);
+                getPosts();
+            });
+            window.location.reload();
+        };
+        window.onload = getPosts;
+    </script>
+</section>
 
-    form.addEventListener('submit', function(e) {
-        // Prevent default behavior:
-        e.preventDefault();
-        // Create payload as new FormData object:
-        const payload = new FormData(form);
-        // Post the payload using Fetch:
-        fetch('/api/timeline_post', {
-        method: 'POST',
-        body: payload,
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .finally(function () {
-            setTimeout(function(){
-                window.location.reload();},100);
-    })
-
-</script>
 </body>
 
 {% endblock %}
