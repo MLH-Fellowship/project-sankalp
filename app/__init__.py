@@ -30,7 +30,7 @@ class TimelinePost(Model):
     name = CharField()
     email = CharField()
     content = TextField()
-    created_at = DateTimeField(default=datetime.datetime.now)
+    created_at = DateTimeField(default=datetime.datetime.now())
 
     class Meta:
         database = mydb
@@ -44,23 +44,23 @@ def index():
 
 @app.route('/')
 def About_Yourself():
-    return render_template('About_Yourself.html')
+    return render_template('About_Yourself.html', title="MLH Fellow", url=os.getenv("URL"))
 
 @app.route('/Map')
 def Map():
-    return render_template('Map.html')
+    return render_template('Map.html', title="MLH Fellow", url=os.getenv("URL"))
 
 @app.route('/Hobbies')
 def Hobbies():
-    return render_template('Hobbies.html')
+    return render_template('Hobbies.html', title="MLH Fellow", url=os.getenv("URL"))
 
 @app.route('/Education')
 def Education():
-    return render_template('Education.html')
+    return render_template('Education.html', title="MLH Fellow", url=os.getenv("URL"))
 
 @app.route('/Experience')
 def Experience():
-    return render_template('Previous_Work_Experience.html')
+    return render_template('Previous_Work_Experience.html', title="MLH Fellow", url=os.getenv("URL"))
 
 @app.route('/Timeline')
 def timeline():
