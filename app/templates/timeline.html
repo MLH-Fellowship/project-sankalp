@@ -47,16 +47,24 @@
 </div>
  <div id="timeline-posts">0</div>
     <script>
-        const form = document.getElementById("timeline-form");
+        # defines form
+        const form = document.getElementById("form");
+        # defines post
         const posts = document.getElementById("timeline-posts");
 
         function getPosts() {
+            # prevent default action from occurring
             event.preventDefault();
-            fetch('https://mlhvictor.duckdns.org/api/timeline_post').then(response => {
+            # obtain the timeline posts from the website
+            fetch('https://sankalp2.duckdns.org/api/timeline_post').then(response => {
+                # return the response
                 return response.json();
             }).then(data => {
+                # for each element in the timeline posts
                 for (const element of data.timeline_posts) {
+                    # displays message to the user
                     console.log(element)
+                    # tells what is between starting and ending tags of elements
                     posts.innerHTML +=
                         `<div>
                         <p>content: ${element.content}</p>
@@ -66,11 +74,15 @@
                 }
             });
         }
-
+        
+        # event that occurs before form is submitted to webserver
         form.onsubmit = (event) => {
+            # prevent default action from occurring
             event.preventDefault();
+            # get data from form
             const data = new FormData(form);
-            fetch('https://mlhvictor.duckdns.org/api/timeline_post', {
+            # fetch data from form
+            fetch('https://sankalp2.duckdns.org/api/timeline_post', {
                 method: 'POST',
                 body: data,
             }).then(res => {
