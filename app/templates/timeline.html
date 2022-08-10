@@ -47,24 +47,24 @@
 </div>
  <div id="timeline-posts">0</div>
     <script>
-        # defines form
+        // defines form
         const form = document.getElementById("form");
-        # defines post
+        // defines post
         const posts = document.getElementById("timeline-posts");
 
         function getPosts() {
-            # prevent default action from occurring
+            // prevent default action from occurring
             event.preventDefault();
-            # obtain the timeline posts from the website
+            // obtain the timeline posts from the website
             fetch('https://sankalp2.duckdns.org/api/timeline_post').then(response => {
-                # return the response
+                // return the response
                 return response.json();
             }).then(data => {
-                # for each element in the timeline posts
+                // for each element in the timeline posts
                 for (const element of data.timeline_posts) {
-                    # displays message to the user
+                    // displays message to the user
                     console.log(element)
-                    # tells what is between starting and ending tags of elements
+                    // tells what is between starting and ending tags of elements
                     posts.innerHTML +=
                         `<div>
                         <p>content: ${element.content}</p>
@@ -75,13 +75,13 @@
             });
         }
         
-        # event that occurs before form is submitted to webserver
+        // event that occurs before form is submitted to webserver
         form.onsubmit = (event) => {
-            # prevent default action from occurring
+            // prevent default action from occurring
             event.preventDefault();
-            # get data from form
+            // get data from form
             const data = new FormData(form);
-            # fetch data from form
+            // fetch data from form
             fetch('https://sankalp2.duckdns.org/api/timeline_post', {
                 method: 'POST',
                 body: data,
